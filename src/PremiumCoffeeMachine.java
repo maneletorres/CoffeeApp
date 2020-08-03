@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Coffee;
 import model.CoffeeBean;
 import model.CoffeeDrink;
 import model.Configuration;
@@ -10,7 +9,7 @@ import model.GroundCoffee;
 import utils.CoffeeException;
 import utils.CoffeeSelection;
 
-public class PremiumCoffeeMachine implements CoffeeMachine {
+public class PremiumCoffeeMachine implements CoffeeMachine, EspressoMachine {
 
 	private Map<CoffeeSelection, Configuration> configMap;
 	private Map<CoffeeSelection, CoffeeBean> beans;
@@ -27,7 +26,6 @@ public class PremiumCoffeeMachine implements CoffeeMachine {
 		this.configMap.put(CoffeeSelection.ESPRESSO, new Configuration(8, 28));
 	}
 
-	@Override
 	public CoffeeDrink brewCoffee(CoffeeSelection selection) throws CoffeeException {
 		switch (selection) {
 		case ESPRESSO:
@@ -39,18 +37,8 @@ public class PremiumCoffeeMachine implements CoffeeMachine {
 		}
 	}
 
-	private CoffeeDrink brewEspresso() {
-		Configuration config = configMap.get(CoffeeSelection.ESPRESSO);
-
-		// Grind the coffee beans:
-		GroundCoffee groundCoffee = this.grinder.grind(this.beans.get(CoffeeSelection.ESPRESSO),
-				config.getQuantityCoffee());
-
-		// Brew an Espresso:
-		return this.brewingUnit.brew(CoffeeSelection.ESPRESSO, groundCoffee, config.getQuantityWater());
-	}
-
-	private CoffeeDrink brewFilterCoffee() {
+	@Override
+	public CoffeeDrink brewFilterCoffee() {
 		Configuration config = configMap.get(CoffeeSelection.FILTER_COFFEE);
 
 		// Grind the coffee beans:
@@ -61,7 +49,19 @@ public class PremiumCoffeeMachine implements CoffeeMachine {
 		return this.brewingUnit.brew(CoffeeSelection.FILTER_COFFEE, groundCoffee, config.getQuantityWater());
 	}
 
-	public void addCoffee(CoffeeSelection sel, CoffeeBean newBeans) throws CoffeeException {
+	@Override
+	public CoffeeDrink brewEspresso() {
+		Configuration config = configMap.get(CoffeeSelection.ESPRESSO);
+
+		// Grind the coffee beans:
+		GroundCoffee groundCoffee = this.grinder.grind(this.beans.get(CoffeeSelection.ESPRESSO),
+				config.getQuantityCoffee());
+
+		// Brew an Espresso:
+		return this.brewingUnit.brew(CoffeeSelection.ESPRESSO, groundCoffee, config.getQuantityWater());
+	}
+
+	public void addCoffeeBeans(CoffeeSelection sel, CoffeeBean newBeans) throws CoffeeException {
 		CoffeeBean existingBeans = this.beans.get(sel);
 
 		if (existingBeans != null) {

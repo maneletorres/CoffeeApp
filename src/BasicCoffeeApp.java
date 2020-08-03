@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Coffee;
 import model.CoffeeDrink;
 import model.GroundCoffee;
 import utils.CoffeeException;

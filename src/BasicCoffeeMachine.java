@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Coffee;
 import model.CoffeeDrink;
 import model.Configuration;
 import model.GroundCoffee;
@@ -13,7 +12,7 @@ public class BasicCoffeeMachine implements CoffeeMachine {
 	private Map<CoffeeSelection, GroundCoffee> groundCoffee;
 	private BrewingUnit brewingUnit;
 
-	public BasicCoffeeMachine(Map coffee) {
+	public BasicCoffeeMachine(Map<CoffeeSelection, GroundCoffee> coffee) {
 		this.groundCoffee = coffee;
 		this.brewingUnit = new BrewingUnit();
 
@@ -22,16 +21,7 @@ public class BasicCoffeeMachine implements CoffeeMachine {
 	}
 
 	@Override
-	public CoffeeDrink brewCoffee(CoffeeSelection selection) throws CoffeeException {
-		switch (selection) {
-		case FILTER_COFFEE:
-			return brewFilterCoffee();
-		default:
-			throw new CoffeeException("CoffeeSelection [" + selection + "] not supported!");
-		}
-	}
-
-	private CoffeeDrink brewFilterCoffee() {
+	public CoffeeDrink brewFilterCoffee() {
 		Configuration config = configMap.get(CoffeeSelection.FILTER_COFFEE);
 
 		// Get the coffee:
@@ -41,7 +31,16 @@ public class BasicCoffeeMachine implements CoffeeMachine {
 		return this.brewingUnit.brew(CoffeeSelection.FILTER_COFFEE, groundCoffee, config.getQuantityWater());
 	}
 
-	public void addCoffee(CoffeeSelection sel, GroundCoffee newCoffee) throws CoffeeException {
+	public CoffeeDrink brewCoffee(CoffeeSelection selection) throws CoffeeException {
+		switch (selection) {
+		case FILTER_COFFEE:
+			return brewFilterCoffee();
+		default:
+			throw new CoffeeException("CoffeeSelection [" + selection + "] not supported!");
+		}
+	}
+
+	public void addGroundCoffee(CoffeeSelection sel, GroundCoffee newCoffee) throws CoffeeException {
 		GroundCoffee existingCoffee = this.groundCoffee.get(sel);
 
 		if (existingCoffee != null) {
