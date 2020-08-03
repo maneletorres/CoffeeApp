@@ -1,9 +1,10 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import exception.CoffeeException;
 import model.Coffee;
 import model.CoffeeBean;
+import model.CoffeeDrink;
+import utils.CoffeeException;
 import utils.CoffeeSelection;
 
 public class CoffeeApp {
@@ -14,8 +15,8 @@ public class CoffeeApp {
 		this.coffeeMachine = coffeeMachine;
 	}
 
-	public Coffee prepareCoffee(CoffeeSelection selection) throws CoffeeException {
-		Coffee coffee = this.coffeeMachine.brewCoffee(selection);
+	public CoffeeDrink prepareCoffee(CoffeeSelection selection) throws CoffeeException {
+		CoffeeDrink coffee = this.coffeeMachine.brewCoffee(selection);
 		System.out.println("Coffee is ready!");
 		return coffee;
 	}

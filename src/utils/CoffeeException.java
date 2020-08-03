@@ -1,4 +1,4 @@
-package exception;
+package utils;
 
 public class CoffeeException extends Exception {
 

@@ -1,13 +1,13 @@
 import java.util.HashMap;
 import java.util.Map;
 
-import exception.CoffeeException;
 import model.Coffee;
 import model.CoffeeBean;
 import model.CoffeeDrink;
 import model.Configuration;
 import model.Grinder;
 import model.GroundCoffee;
+import utils.CoffeeException;
 import utils.CoffeeSelection;
 
 public class PremiumCoffeeMachine implements CoffeeMachine {
@@ -61,7 +61,7 @@ public class PremiumCoffeeMachine implements CoffeeMachine {
 		return this.brewingUnit.brew(CoffeeSelection.FILTER_COFFEE, groundCoffee, config.getQuantityWater());
 	}
 
-	public void addCoffeeBeans(CoffeeSelection sel, CoffeeBean newBeans) throws CoffeeException {
+	public void addCoffee(CoffeeSelection sel, CoffeeBean newBeans) throws CoffeeException {
 		CoffeeBean existingBeans = this.beans.get(sel);
 
 		if (existingBeans != null) {

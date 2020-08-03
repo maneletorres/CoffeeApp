@@ -1,6 +1,6 @@
-import exception.CoffeeException;
 import model.Coffee;
 import model.CoffeeDrink;
+import utils.CoffeeException;
 import utils.CoffeeSelection;
 
 public interface CoffeeMachine {

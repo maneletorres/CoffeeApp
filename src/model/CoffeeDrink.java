@@ -1,6 +1,6 @@
 package model;
 
-import exception.CoffeeException;
+import utils.CoffeeException;
 import utils.CoffeeSelection;
 
 public class CoffeeDrink {
